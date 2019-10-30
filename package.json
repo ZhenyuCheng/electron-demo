@@ -1,0 +1,17 @@
+{
+  "name": "ele-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "electron .",
+    "debug": "electron --inspect=5858 ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^5.0.11",
+    "electron-devtools-installer": "^2.2.4"
+  }
+}
