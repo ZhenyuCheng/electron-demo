@@ -21,7 +21,7 @@ const template = [{
 {
     label: 'Edit',
     submenu: [{
-        role: 'undo'
+        role: 'toggleDevTools'
     },
     // 可以通过角色来为menu添加预定义行为，最好给任何一个菜单指定 role去匹配一个标准角色, 而不是尝试在 click 函数中手动实现该行为。 内置的 role 行为将提供最佳的原生体验。
     {
