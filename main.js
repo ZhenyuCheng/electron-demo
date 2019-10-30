@@ -8,41 +8,46 @@ const {
 const {
     dialog
 } = require('electron')
+const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+
 
 const template = [{
-        label: 'File',
-        submenu: [{
-            role: 'close'
-        }]
+    label: 'File',
+    submenu: [{
+        role: 'close'
+    }]
+},
+// { role: 'editMenu' }
+{
+    label: 'Edit',
+    submenu: [{
+        role: 'undo'
     },
-    // { role: 'editMenu' }
+    // 可以通过角色来为menu添加预定义行为，最好给任何一个菜单指定 role去匹配一个标准角色, 而不是尝试在 click 函数中手动实现该行为。 内置的 role 行为将提供最佳的原生体验。
     {
-        label: 'Edit',
-        submenu: [{
-                role: 'undo'
-            },
-            // 可以通过角色来为menu添加预定义行为，最好给任何一个菜单指定 role去匹配一个标准角色, 而不是尝试在 click 函数中手动实现该行为。 内置的 role 行为将提供最佳的原生体验。
-            {
-                role: 'redo'
-            },
-            {
-                type: 'separator'
-            }, // 分割线
-        ]
+        role: 'redo'
     },
     {
-        role: 'help',
-        submenu: [{
-            label: 'Learn More',
-            click: async () => { // 点击事件
-                const {
-                    shell
-                } = require('electron')
-                await shell.openExternal('https://electronjs.org')
-            }
-        }]
-    }
+        type: 'separator'
+    }, // 分割线
+    ]
+},
+{
+    role: 'help',
+    submenu: [{
+        label: 'Learn More',
+        click: async () => { // 点击事件
+            const {
+                shell
+            } = require('electron')
+            await shell.openExternal('https://electronjs.org')
+        }
+    }]
+}
 ]
+installExtension(REACT_DEVELOPER_TOOLS)
+.then((name) => console.log(`Added Extension:  ${name}`))
+.catch((err) => console.log('An error occurred: ', err));
 const menu = Menu.buildFromTemplate(template)
 //监听应用准备完成的事件
 app.on('ready', () => {
@@ -78,6 +83,17 @@ app.on('ready', () => {
     console.log(dialog.showOpenDialog({
         properties: ['openFile', 'openDirectory', 'multiSelections']
     }))
+
+
+
+
+    // 支持的扩展
+    // EMBER_INSPECTOR, REACT_DEVELOPER_TOOLS,
+    // BACKBONE_DEBUGGER, JQUERY_DEBUGGER,
+    // ANGULARJS_BATARANG, VUEJS_DEVTOOLS,
+    // REDUX_DEVTOOLS, REACT_PERF,
+    // CYCLEJS_DEVTOOL, MOBX_DEVTOOLS,
+    // APOLLO_DEVELOPER_TOOLS,
 });
 
 //监听所有窗口关闭的事件 
